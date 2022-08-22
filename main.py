@@ -1,14 +1,22 @@
 from typing import Union
 from fastapi import FastAPI
 from enum import Enum
+from pydantic import BaseModel
 
-app = FastAPI()
+
+class Item(BaseModel):
+    name: str
+    description: Union[str, None] = None
+    price: float
+    tax: Union[float, None] = None
 
 class ModelName(str, Enum):
     alexnet = "alexnet"
     resnet = "resnet"
     lenet = "lenet"
 
+
+app = FastAPI()
 
 @app.get("/")
 async def root():
@@ -51,3 +59,13 @@ async def read_item(item_id: str, q: Union[str, None] = None, short: bool = Fals
     return item
 
 # Request Body
+@app.post("/items/")
+async def create_item(item: Item):
+    return item
+
+@app.put("/items/{item_id}")
+async def create_item(item_id: int, item: Item, q: Union[str, None] = None):
+    result = {"item_id": item_id, **item.dict()}
+    if q:
+        result.update({"q": q})
+    return result
