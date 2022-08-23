@@ -1,5 +1,5 @@
-from typing import Union
-from fastapi import FastAPI
+from typing import Union, List
+from fastapi import FastAPI, Query
 from enum import Enum
 from pydantic import BaseModel
 
@@ -58,6 +58,7 @@ async def read_item(item_id: str, q: Union[str, None] = None, short: bool = Fals
         )
     return item
 
+
 # Request Body
 @app.post("/items/")
 async def create_item(item: Item):
@@ -69,3 +70,20 @@ async def create_item(item_id: int, item: Item, q: Union[str, None] = None):
     if q:
         result.update({"q": q})
     return result
+
+
+# Query Parameters and String Validations
+@app.get("/items_validations/")
+async def read_items(
+    q: Union[str, None] = Query(default=None, min_length=3, max_length=50, title="Query string", deprecated=False, alias="item-query")
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@app.get("/items_validations2/")
+async def read_items(q: Union[List[str], None] = Query(default=None)):
+    query_items = {"q": q}
+    return query_items
+
