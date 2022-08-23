@@ -1,13 +1,15 @@
 from typing import Union, List
 from fastapi import FastAPI, Query, Path, Body
 from enum import Enum
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Item(BaseModel):
     name: str
-    description: Union[str, None] = None
-    price: float
+    description: Union[str, None] = Field(
+        default=None, title="The description of the item", max_length=300
+    )
+    price: float = Field(gt=0, description="The price must be greater than zero")
     tax: Union[float, None] = None
 
 class ModelName(str, Enum):
@@ -117,4 +119,11 @@ async def update_item(
     results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
     if q:
         results.update({"q": q})
+    return results
+
+# Body - Fields
+
+@app.put("/items_body_fields/{item_id}")
+async def update_item(item_id: int, item: Item = Body(embed=True)):
+    results = {"item_id": item_id, "item": item}
     return results
