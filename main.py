@@ -1,5 +1,5 @@
 from typing import Union, List
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Path, Body
 from enum import Enum
 from pydantic import BaseModel
 
@@ -87,3 +87,34 @@ async def read_items(q: Union[List[str], None] = Query(default=None)):
     query_items = {"q": q}
     return query_items
 
+
+# Path Parameters and Numeric Validations
+
+@app.get("/items_validations/{item_id}")
+async def read_items(
+    *,
+    item_id: int = Path(title="The ID of the item to get", gt=0, le=1000),
+    q: str,
+):
+    results = {"item_id": item_id}
+    if q:
+        results.update({"q": q})
+    return results
+
+class User(BaseModel):
+    username: str
+    full_name: Union[str, None] = None
+
+@app.put("/items_multi_body/{item_id}")
+async def update_item(
+    *,
+    item_id: int,
+    item: Item,
+    user: User,
+    importance: int = Body(gt=0),
+    q: Union[str, None] = None
+):
+    results = {"item_id": item_id, "item": item, "user": user, "importance": importance}
+    if q:
+        results.update({"q": q})
+    return results
