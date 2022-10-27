@@ -1,0 +1,1 @@
+{"name":"sql11529654","type":"record","fields":[{"name":"nuri","type":"record","fields":[{"name":"email","type":"string","properties":{"description":""}},{"name":"text","type":"string","properties":{"description":""}}],"properties":{"description":""}}],"properties":{"description":""}}
