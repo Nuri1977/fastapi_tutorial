@@ -1,0 +1,1 @@
+ALTER TABLE `nuri` ADD COLUMN `ahcahkchkadhkbcvabhkascasc` char NULL;
