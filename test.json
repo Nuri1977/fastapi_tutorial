@@ -1,0 +1,34 @@
+{
+  "dataSourceDescription": "test-csv",
+  "dataSourceId": "3e0fe597-5cc7-4293-a887-49a5ae588961",
+  "dataSourceName": "test-csv",
+  "id": "2c8e4027-8537-4017-bd8e-93f1e84998fa",
+  "includeAllSchemas": false,
+  "lastRun": "",
+  "lastRunId": "",
+  "name": "csv-catalog",
+  "schema": {
+    "name": "titanic.csv",
+    "type": "record",
+    "fields": [
+      {
+        "name": "PassengerId",
+        "type": "int",
+        "labels": [],
+        "properties": {
+          "description": ""
+        },
+        "sourceType": "int",
+        "tagRules": {},
+        "tags": []
+      }
+    ],
+    "labels": [],
+    "properties": {
+      "createdDate": "2022-10-26T11:29:09.274+02:00",
+      "description": ""
+    },
+    "tagRules": {},
+    "tags": []
+  }
+}
