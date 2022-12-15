@@ -1,0 +1,1 @@
+CREATE SCHEMA IF NOT EXISTS "test_schema";CREATE TABLE "test_schema"."test_table"("id" int16);
