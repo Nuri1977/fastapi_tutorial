@@ -1,0 +1,1 @@
+DROP TABLE "test_schema_01"."test_table_01aa";
