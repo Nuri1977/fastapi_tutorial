@@ -1,0 +1,1 @@
+CREATE SCHEMA IF NOT EXISTS "arti";CREATE TABLE "arti"."test_table"("id" numeric, "test_name" varchar);
